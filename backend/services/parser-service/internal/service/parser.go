@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	pb "github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/internal/biz"
+	pb "github.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1"
+	"github.com/lyb88999/resume_helper/backend/services/parser-service/internal/biz"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 )

@@ -1396,7 +1396,7 @@ const file_parser_v1_parser_proto_rawDesc = "" +
 	"\rParserService\x12x\n" +
 	"\rParseDocument\x12#.api.parser.v1.ParseDocumentRequest\x1a!.api.parser.v1.ParseDocumentReply\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/api/v1/parser/parse\x12\x83\x01\n" +
 	"\x0eGetParseStatus\x12$.api.parser.v1.GetParseStatusRequest\x1a\".api.parser.v1.GetParseStatusReply\"'\x82\xd3\xe4\x93\x02!\x12\x1f/api/v1/parser/status/{task_id}\x12S\n" +
-	"\x06Health\x12\x1c.api.parser.v1.HealthRequest\x1a\x1a.api.parser.v1.HealthReply\"\x0f\x82\xd3\xe4\x93\x02\t\x12\a/healthBYZWgithub.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1;v1b\x06proto3"
+	"\x06Health\x12\x1c.api.parser.v1.HealthRequest\x1a\x1a.api.parser.v1.HealthReply\"\x0f\x82\xd3\xe4\x93\x02\t\x12\a/healthBYZWgithub.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1;v1b\x06proto3"
 
 var (
 	file_parser_v1_parser_proto_rawDescOnce sync.Once

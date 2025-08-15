@@ -893,7 +893,7 @@ const file_backend_shared_proto_user_user_proto_rawDesc = "" +
 	"UpdateUser\x12\x1a.user.v1.UpdateUserRequest\x1a\x1b.user.v1.UpdateUserResponse\x12E\n" +
 	"\n" +
 	"DeleteUser\x12\x1a.user.v1.DeleteUserRequest\x1a\x1b.user.v1.DeleteUserResponse\x12H\n" +
-	"\vVerifyToken\x12\x1b.user.v1.VerifyTokenRequest\x1a\x1c.user.v1.VerifyTokenResponseBGZEgithub.com/liyubo06/resumeOptim_claude/backend/shared/proto/user;userb\x06proto3"
+	"\vVerifyToken\x12\x1b.user.v1.VerifyTokenRequest\x1a\x1c.user.v1.VerifyTokenResponseBGZEgithub.com/lyb88999/resume_helper/backend/shared/proto/user;userb\x06proto3"
 
 var (
 	file_backend_shared_proto_user_user_proto_rawDescOnce sync.Once

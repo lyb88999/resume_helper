@@ -817,7 +817,7 @@ const file_file_v1_file_proto_rawDesc = "" +
 	"\aGetFile\x12\x1b.api.file.v1.GetFileRequest\x1a\x19.api.file.v1.GetFileReply\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/api/v1/files/{file_id}\x12z\n" +
 	"\fDownloadFile\x12 .api.file.v1.DownloadFileRequest\x1a\x1e.api.file.v1.DownloadFileReply\"(\x82\xd3\xe4\x93\x02\"\x12 /api/v1/files/{file_id}/download\x12k\n" +
 	"\n" +
-	"DeleteFile\x12\x1e.api.file.v1.DeleteFileRequest\x1a\x1c.api.file.v1.DeleteFileReply\"\x1f\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/files/{file_id}BUZSgithub.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1b\x06proto3"
+	"DeleteFile\x12\x1e.api.file.v1.DeleteFileRequest\x1a\x1c.api.file.v1.DeleteFileReply\"\x1f\x82\xd3\xe4\x93\x02\x19*\x17/api/v1/files/{file_id}BUZSgithub.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1;v1b\x06proto3"
 
 var (
 	file_file_v1_file_proto_rawDescOnce sync.Once

@@ -847,7 +847,7 @@ const file_internal_conf_conf_proto_rawDesc = "" +
 	"\vretry_count\x18\x03 \x01(\x05R\n" +
 	"retryCount\x12\x1d\n" +
 	"\n" +
-	"queue_name\x18\x04 \x01(\tR\tqueueNameB[ZYgithub.com/liyubo06/resumeOptim_claude/backend/services/parser-service/internal/conf;confb\x06proto3"
+	"queue_name\x18\x04 \x01(\tR\tqueueNameB[ZYgithub.com/lyb88999/resume_helper/backend/services/parser-service/internal/conf;confb\x06proto3"
 
 var (
 	file_internal_conf_conf_proto_rawDescOnce sync.Once

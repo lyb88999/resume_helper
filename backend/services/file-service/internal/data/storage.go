@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/biz"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/biz"
+	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/conf"
 )
 
 type localStorage struct {

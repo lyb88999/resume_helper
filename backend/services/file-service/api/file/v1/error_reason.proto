@@ -4,7 +4,7 @@ package api.file.v1;
 
 import "errors/errors.proto";
 
-option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1";
+option go_package = "github.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1;v1";
 
 // FileService的错误码
 enum ErrorReason {

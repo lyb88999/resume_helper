@@ -6,9 +6,9 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 
-	v1 "github.com/liyubo06/resumeOptim_claude/api/user/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/conf"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/service"
+	v1 "github.com/lyb88999/resume_helper/api/user/v1"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/service"
 )
 
 // NewGRPCServer new a gRPC server.

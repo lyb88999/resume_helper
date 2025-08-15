@@ -1,4 +1,4 @@
-module github.com/liyubo06/resumeOptim_claude/backend/services/file-service
+module github.com/lyb88999/resume_helper/backend/services/file-service
 
 go 1.24
 

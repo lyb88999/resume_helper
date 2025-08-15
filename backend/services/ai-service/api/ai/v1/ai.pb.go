@@ -1560,7 +1560,7 @@ const file_ai_v1_ai_proto_rawDesc = "" +
 	"\x13GenerateSuggestions\x12!.ai.v1.GenerateSuggestionsRequest\x1a\".ai.v1.GenerateSuggestionsResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/ai/suggestions\x12K\n" +
 	"\x04Chat\x12\x12.ai.v1.ChatRequest\x1a\x13.ai.v1.ChatResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/api/v1/ai/chat\x12\x80\x01\n" +
 	"\x11RetrieveKnowledge\x12\x1f.ai.v1.RetrieveKnowledgeRequest\x1a .ai.v1.RetrieveKnowledgeResponse\"(\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/api/v1/ai/knowledge/retrieve\x12R\n" +
-	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x15.ai.v1.HealthResponse\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/ai/healthBQZOgithub.com/liyubo06/resumeOptim_claude/backend/services/ai-service/api/ai/v1;v1b\x06proto3"
+	"\x06Health\x12\x16.google.protobuf.Empty\x1a\x15.ai.v1.HealthResponse\"\x19\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/ai/healthBQZOgithub.com/lyb88999/resume_helper/backend/services/ai-service/api/ai/v1;v1b\x06proto3"
 
 var (
 	file_ai_v1_ai_proto_rawDescOnce sync.Once

@@ -987,7 +987,7 @@ const file_conf_conf_proto_rawDesc = "" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\x12'\n" +
 	"\x0fcollection_name\x18\x03 \x01(\tR\x0ecollectionName\x12\x1c\n" +
 	"\tdimension\x18\x04 \x01(\x05R\tdimension\x121\n" +
-	"\x14similarity_threshold\x18\x05 \x01(\x02R\x13similarityThresholdBWZUgithub.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/conf;confb\x06proto3"
+	"\x14similarity_threshold\x18\x05 \x01(\x02R\x13similarityThresholdBWZUgithub.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf;confb\x06proto3"
 
 var (
 	file_conf_conf_proto_rawDescOnce sync.Once

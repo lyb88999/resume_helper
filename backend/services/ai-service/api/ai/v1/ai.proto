@@ -5,7 +5,7 @@ package ai.v1;
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/api/ai/v1;v1";
+option go_package = "github.com/lyb88999/resume_helper/backend/services/ai-service/api/ai/v1;v1";
 
 // AI服务接口
 service AIService {

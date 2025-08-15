@@ -10,9 +10,9 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	khttp "github.com/go-kratos/kratos/v2/transport/http"
 
-	v1 "github.com/liyubo06/resumeOptim_claude/api/user/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/conf"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/service"
+	v1 "github.com/lyb88999/resume_helper/api/user/v1"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/service"
 )
 
 // CORS 中间件

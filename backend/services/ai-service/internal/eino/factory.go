@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf"
 )
 
 // EinoComponents Eino组件集合（简化实现）

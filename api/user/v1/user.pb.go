@@ -548,7 +548,7 @@ const file_api_user_v1_user_proto_rawDesc = "" +
 	"\bRegister\x12\x1c.api.user.v1.RegisterRequest\x1a\x1a.api.user.v1.RegisterReply\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/user/register\x12V\n" +
 	"\x05Login\x12\x19.api.user.v1.LoginRequest\x1a\x17.api.user.v1.LoginReply\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/v1/user/login\x12d\n" +
 	"\vGetUserInfo\x12\x1f.api.user.v1.GetUserInfoRequest\x1a\x1d.api.user.v1.GetUserInfoReply\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/user/{id}\x12f\n" +
-	"\x0eUpdateUserInfo\x12\".api.user.v1.UpdateUserInfoRequest\x1a\x16.google.protobuf.Empty\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\x1a\r/v1/user/{id}B7Z5github.com/liyubo06/resumeOptim_claude/api/user/v1;v1b\x06proto3"
+	"\x0eUpdateUserInfo\x12\".api.user.v1.UpdateUserInfoRequest\x1a\x16.google.protobuf.Empty\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\x1a\r/v1/user/{id}B7Z5github.com/lyb88999/resume_helper/api/user/v1;v1b\x06proto3"
 
 var (
 	file_api_user_v1_user_proto_rawDescOnce sync.Once

@@ -118,7 +118,7 @@ const file_parser_v1_error_reason_proto_rawDesc = "" +
 	"\x0eFILE_TOO_LARGE\x10\x06\x1a\x04\xa8E\x9d\x03\x12\x17\n" +
 	"\rPARSE_TIMEOUT\x10\a\x1a\x04\xa8E\x98\x03\x12\x1c\n" +
 	"\x12DOCUMENT_PROTECTED\x10\b\x1a\x04\xa8E\x90\x03\x12\x17\n" +
-	"\rEMPTY_CONTENT\x10\t\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x03BYZWgithub.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1;v1b\x06proto3"
+	"\rEMPTY_CONTENT\x10\t\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x03BYZWgithub.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1;v1b\x06proto3"
 
 var (
 	file_parser_v1_error_reason_proto_rawDescOnce sync.Once

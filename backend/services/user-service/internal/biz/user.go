@@ -10,8 +10,8 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 
-	v1 "github.com/liyubo06/resumeOptim_claude/api/user/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/conf"
+	v1 "github.com/lyb88999/resume_helper/api/user/v1"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
 )
 
 // User 业务层用户模型

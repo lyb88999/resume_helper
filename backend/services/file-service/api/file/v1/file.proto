@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "validate/validate.proto";
 
-option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1";
+option go_package = "github.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1;v1";
 
 // FileService 文件服务
 service FileService {

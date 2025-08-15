@@ -1,9 +1,9 @@
 package server
 
 import (
-	v1 "github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/internal/conf"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/internal/service"
+	v1 "github.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1"
+	"github.com/lyb88999/resume_helper/backend/services/parser-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/parser-service/internal/service"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"

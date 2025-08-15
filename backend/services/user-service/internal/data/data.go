@@ -10,8 +10,8 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/conf"
-	"github.com/liyubo06/resumeOptim_claude/backend/shared/pkg/models"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/shared/pkg/models"
 )
 
 // ProviderSet is data providers.

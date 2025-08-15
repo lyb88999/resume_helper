@@ -1481,7 +1481,7 @@ const file_backend_shared_proto_resume_resume_proto_rawDesc = "" +
 	"\x11AIAnalysisService\x12R\n" +
 	"\rAnalyzeResume\x12\x1f.resume.v1.AnalyzeResumeRequest\x1a .resume.v1.AnalyzeResumeResponse\x12d\n" +
 	"\x13GenerateSuggestions\x12%.resume.v1.GenerateSuggestionsRequest\x1a&.resume.v1.GenerateSuggestionsResponse\x12^\n" +
-	"\x11GetAnalysisResult\x12#.resume.v1.GetAnalysisResultRequest\x1a$.resume.v1.GetAnalysisResultResponseBKZIgithub.com/liyubo06/resumeOptim_claude/backend/shared/proto/resume;resumeb\x06proto3"
+	"\x11GetAnalysisResult\x12#.resume.v1.GetAnalysisResultRequest\x1a$.resume.v1.GetAnalysisResultResponseBKZIgithub.com/lyb88999/resume_helper/backend/shared/proto/resume;resumeb\x06proto3"
 
 var (
 	file_backend_shared_proto_resume_resume_proto_rawDescOnce sync.Once

@@ -93,7 +93,7 @@ const file_api_user_v1_error_reason_proto_rawDesc = "" +
 	"\vUSER_EXISTS\x10\x01\x1a\x04\xa8E\x99\x03\x12\x1a\n" +
 	"\x10INVALID_PASSWORD\x10\x02\x1a\x04\xa8E\x91\x03\x12\x17\n" +
 	"\rINVALID_EMAIL\x10\x03\x1a\x04\xa8E\x90\x03\x12\x17\n" +
-	"\rINVALID_TOKEN\x10\x04\x1a\x04\xa8E\x91\x03\x1a\x04\xa0E\xf4\x03B7Z5github.com/liyubo06/resumeOptim_claude/api/user/v1;v1b\x06proto3"
+	"\rINVALID_TOKEN\x10\x04\x1a\x04\xa8E\x91\x03\x1a\x04\xa0E\xf4\x03B7Z5github.com/lyb88999/resume_helper/api/user/v1;v1b\x06proto3"
 
 var (
 	file_api_user_v1_error_reason_proto_rawDescOnce sync.Once

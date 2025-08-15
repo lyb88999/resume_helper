@@ -6,9 +6,9 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	pb "github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/api/ai/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/biz"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/eino"
+	pb "github.com/lyb88999/resume_helper/backend/services/ai-service/api/ai/v1"
+	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/biz"
+	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/eino"
 )
 
 // AIService AI服务实现

@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/biz"
+	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/biz"
 )
 
 // FileModel 文件数据模型

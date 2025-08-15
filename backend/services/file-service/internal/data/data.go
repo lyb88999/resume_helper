@@ -3,7 +3,7 @@ package data
 import (
 	"time"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-kratos/kratos/v2/log"
 
-	v1 "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/biz"
+	v1 "github.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1"
+	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/biz"
 )
 
 // FileService 文件服务实现

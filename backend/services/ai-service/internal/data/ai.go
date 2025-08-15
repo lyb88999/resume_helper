@@ -9,7 +9,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"gorm.io/gorm"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/eino"
+	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/eino"
 )
 
 // aiRepo AI数据仓库实现

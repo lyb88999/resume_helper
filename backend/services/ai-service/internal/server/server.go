@@ -6,7 +6,7 @@ import (
 	"github.com/google/wire"
 	"github.com/hashicorp/consul/api"
 
-	"github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf"
 )
 
 // ProviderSet is server providers.

@@ -103,7 +103,7 @@ const file_file_v1_error_reason_proto_rawDesc = "" +
 	"\x12FILE_UPLOAD_FAILED\x10\x03\x1a\x04\xa8E\xf4\x03\x12\x1e\n" +
 	"\x14FILE_DOWNLOAD_FAILED\x10\x04\x1a\x04\xa8E\xf4\x03\x12\x1b\n" +
 	"\x11PERMISSION_DENIED\x10\x05\x1a\x04\xa8E\x93\x03\x12 \n" +
-	"\x16STORAGE_QUOTA_EXCEEDED\x10\x06\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x03BUZSgithub.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1b\x06proto3"
+	"\x16STORAGE_QUOTA_EXCEEDED\x10\x06\x1a\x04\xa8E\x90\x03\x1a\x04\xa0E\xf4\x03BUZSgithub.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1;v1b\x06proto3"
 
 var (
 	file_file_v1_error_reason_proto_rawDescOnce sync.Once

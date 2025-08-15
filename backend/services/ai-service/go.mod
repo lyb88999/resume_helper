@@ -1,4 +1,4 @@
-module github.com/liyubo06/resumeOptim_claude/backend/services/ai-service
+module github.com/lyb88999/resume_helper/backend/services/ai-service
 
 go 1.24.1
 

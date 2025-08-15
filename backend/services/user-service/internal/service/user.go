@@ -6,8 +6,8 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	v1 "github.com/liyubo06/resumeOptim_claude/api/user/v1"
-	"github.com/liyubo06/resumeOptim_claude/backend/services/user-service/internal/biz"
+	v1 "github.com/lyb88999/resume_helper/api/user/v1"
+	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/biz"
 )
 
 // UserService 用户服务实现
