@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package api.parser.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1;v1";
+
+// 解析服务
+service ParserService {
+  // 解析文档
+  rpc ParseDocument(ParseDocumentRequest) returns (ParseDocumentReply) {
+    option (google.api.http) = {
+      post: "/api/v1/parser/parse"
+      body: "*"
+    };
+  }
+  
+  // 获取解析状态
+  rpc GetParseStatus(GetParseStatusRequest) returns (GetParseStatusReply) {
+    option (google.api.http) = {
+      get: "/api/v1/parser/status/{task_id}"
+    };
+  }
+  
+  // 健康检查
+  rpc Health(HealthRequest) returns (HealthReply) {
+    option (google.api.http) = {
+      get: "/health"
+    };
+  }
+}
+
+// 解析文档请求
+message ParseDocumentRequest {
+  string file_path = 1 [(validate.rules).string.min_len = 1];
+  string file_type = 2 [(validate.rules).string = {in: ["pdf", "docx", "doc", "txt", "md"]}];
+  string resume_id = 3 [(validate.rules).string.min_len = 1];
+  string user_id = 4 [(validate.rules).string.min_len = 1];
+  
+  // 解析选项
+  ParseOptions options = 5;
+}
+
+// 解析选项
+message ParseOptions {
+  bool extract_images = 1;           // 是否提取图片
+  bool clean_text = 2;              // 是否清洗文本
+  string target_language = 3;       // 目标语言 zh-CN, en-US
+  repeated string skip_sections = 4; // 跳过的章节
+}
+
+// 解析文档响应
+message ParseDocumentReply {
+  string task_id = 1;
+  string status = 2; // processing, completed, failed
+  ParsedContent content = 3;
+  string message = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+// 解析内容
+message ParsedContent {
+  PersonalInfo personal_info = 1;
+  repeated Education education = 2;
+  repeated Experience experience = 3;
+  repeated Project projects = 4;
+  Skills skills = 5;
+  string raw_text = 6;
+  ParseMetadata metadata = 7;
+}
+
+// 个人信息
+message PersonalInfo {
+  string name = 1;
+  string phone = 2;
+  string email = 3;
+  string address = 4;
+  string birth_date = 5;
+  string gender = 6;
+  string nationality = 7;
+  repeated string social_links = 8; // LinkedIn, GitHub等
+  string avatar_url = 9;
+}
+
+// 教育背景
+message Education {
+  string school = 1;
+  string degree = 2;      // 学位：学士、硕士、博士
+  string major = 3;       // 专业
+  string start_date = 4;
+  string end_date = 5;
+  string gpa = 6;
+  string description = 7;
+  repeated string courses = 8; // 主要课程
+}
+
+// 工作经历
+message Experience {
+  string company = 1;
+  string position = 2;
+  string start_date = 3;
+  string end_date = 4;
+  string location = 5;
+  string department = 6;
+  repeated string responsibilities = 7; // 工作职责
+  repeated string achievements = 8;     // 工作成就
+  repeated string technologies = 9;     // 使用技术
+}
+
+// 项目经历
+message Project {
+  string name = 1;
+  string role = 2;         // 角色
+  string start_date = 3;
+  string end_date = 4;
+  string description = 5;
+  repeated string technologies = 6;  // 技术栈
+  repeated string achievements = 7;  // 项目成果
+  string url = 8;         // 项目链接
+  string company = 9;     // 所属公司
+}
+
+// 技能
+message Skills {
+  repeated SkillCategory categories = 1;
+  repeated string languages = 2;      // 语言能力
+  repeated string certifications = 3; // 证书
+  repeated string awards = 4;         // 奖项
+}
+
+// 技能分类
+message SkillCategory {
+  string category = 1;              // 分类名称：编程语言、框架、工具等
+  repeated SkillItem skills = 2;
+}
+
+// 技能项
+message SkillItem {
+  string name = 1;
+  string level = 2;    // 熟练度：熟练、精通、了解
+  int32 years = 3;     // 使用年限
+}
+
+// 解析元数据
+message ParseMetadata {
+  string file_size = 1;
+  int32 page_count = 2;
+  string parse_duration = 3;
+  string parser_version = 4;
+  repeated string warnings = 5;
+  int32 confidence_score = 6; // 解析置信度 0-100
+}
+
+// 获取解析状态请求
+message GetParseStatusRequest {
+  string task_id = 1 [(validate.rules).string.min_len = 1];
+}
+
+// 获取解析状态响应
+message GetParseStatusReply {
+  string task_id = 1;
+  string status = 2;
+  ParsedContent content = 3;
+  string message = 4;
+  int32 progress = 5; // 进度 0-100
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+// 健康检查请求
+message HealthRequest {}
+
+// 健康检查响应
+message HealthReply {
+  string status = 1;
+  string service = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}

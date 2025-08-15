@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package user.v1;
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/shared/proto/user;user";
+
+import "google/protobuf/timestamp.proto";
+
+// 用户服务
+service UserService {
+  // 用户注册
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  // 用户登录
+  rpc Login(LoginRequest) returns (LoginResponse);
+  // 获取用户信息
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  // 更新用户信息
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  // 删除用户
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  // 验证Token
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+}
+
+// 用户注册请求
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string full_name = 4;
+}
+
+// 用户注册响应
+message RegisterResponse {
+  int32 code = 1;
+  string message = 2;
+  User user = 3;
+  string token = 4;
+}
+
+// 用户登录请求
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// 用户登录响应
+message LoginResponse {
+  int32 code = 1;
+  string message = 2;
+  User user = 3;
+  string token = 4;
+}
+
+// 获取用户请求
+message GetUserRequest {
+  uint64 user_id = 1;
+}
+
+// 获取用户响应
+message GetUserResponse {
+  int32 code = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 更新用户请求
+message UpdateUserRequest {
+  uint64 user_id = 1;
+  string full_name = 2;
+  string avatar_url = 3;
+}
+
+// 更新用户响应
+message UpdateUserResponse {
+  int32 code = 1;
+  string message = 2;
+  User user = 3;
+}
+
+// 删除用户请求
+message DeleteUserRequest {
+  uint64 user_id = 1;
+}
+
+// 删除用户响应
+message DeleteUserResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+// 验证Token请求
+message VerifyTokenRequest {
+  string token = 1;
+}
+
+// 验证Token响应
+message VerifyTokenResponse {
+  int32 code = 1;
+  string message = 2;
+  uint64 user_id = 3;
+  bool valid = 4;
+}
+
+// 用户信息
+message User {
+  uint64 id = 1;
+  string username = 2;
+  string email = 3;
+  string full_name = 4;
+  string avatar_url = 5;
+  int32 status = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}

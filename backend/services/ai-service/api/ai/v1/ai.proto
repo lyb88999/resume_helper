@@ -1,0 +1,213 @@
+syntax = "proto3";
+
+package ai.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/ai-service/api/ai/v1;v1";
+
+// AI服务接口
+service AIService {
+  // 分析简历
+  rpc AnalyzeResume(AnalyzeResumeRequest) returns (AnalyzeResumeResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/ai/analyze"
+      body: "*"
+    };
+  }
+
+  // 生成优化建议
+  rpc GenerateSuggestions(GenerateSuggestionsRequest) returns (GenerateSuggestionsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/ai/suggestions"
+      body: "*"
+    };
+  }
+
+  // 智能问答
+  rpc Chat(ChatRequest) returns (ChatResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/ai/chat"
+      body: "*"
+    };
+  }
+
+  // 知识检索
+  rpc RetrieveKnowledge(RetrieveKnowledgeRequest) returns (RetrieveKnowledgeResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/ai/knowledge/retrieve"
+      body: "*"
+    };
+  }
+
+  // 健康检查
+  rpc Health(google.protobuf.Empty) returns (HealthResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/ai/health"
+    };
+  }
+}
+
+// 分析简历请求
+message AnalyzeResumeRequest {
+  string resume_id = 1;           // 简历ID
+  string content = 2;             // 简历内容
+  string file_type = 3;           // 文件类型
+  string target_position = 4;     // 目标职位
+  AnalysisOptions options = 5;    // 分析选项
+}
+
+// 分析选项
+message AnalysisOptions {
+  bool enable_completeness = 1;   // 启用完整性分析
+  bool enable_clarity = 2;        // 启用清晰度分析
+  bool enable_keyword = 3;        // 启用关键词分析
+  bool enable_format = 4;         // 启用格式分析
+  bool enable_quantification = 5; // 启用量化分析
+}
+
+// 分析简历响应
+message AnalyzeResumeResponse {
+  string analysis_id = 1;         // 分析ID
+  AnalysisResult result = 2;      // 分析结果
+  string status = 3;              // 状态
+  string message = 4;             // 消息
+}
+
+// 分析结果
+message AnalysisResult {
+  map<string, Section> sections = 1;      // 简历章节
+  repeated Suggestion suggestions = 2;     // 建议列表
+  ScoreBreakdown scores = 3;              // 评分详情
+  repeated Improvement improvements = 4;   // 改进建议
+  string summary = 5;                     // 总结
+}
+
+// 简历章节
+message Section {
+  string content = 1;             // 章节内容
+  string extracted_info = 2;      // 提取的信息
+  float quality_score = 3;        // 质量评分
+  repeated Issue issues = 4;      // 问题列表
+}
+
+// 问题
+message Issue {
+  string type = 1;                // 问题类型
+  string description = 2;         // 问题描述
+  string severity = 3;            // 严重程度
+  string suggestion = 4;          // 建议
+}
+
+// 建议
+message Suggestion {
+  string id = 1;                  // 建议ID
+  string type = 2;                // 建议类型
+  string title = 3;               // 建议标题
+  string description = 4;         // 建议描述
+  string priority = 5;            // 优先级
+  string section = 6;             // 相关章节
+  string action = 7;              // 建议操作
+}
+
+// 评分详情
+message ScoreBreakdown {
+  float overall_score = 1;        // 总体评分
+  float completeness_score = 2;   // 完整性评分
+  float clarity_score = 3;        // 清晰度评分
+  float keyword_score = 4;        // 关键词评分
+  float format_score = 5;         // 格式评分
+  float quantification_score = 6; // 量化评分
+  map<string, float> dimension_scores = 7; // 维度评分
+}
+
+// 改进建议
+message Improvement {
+  string type = 1;                // 改进类型
+  string description = 2;         // 改进描述
+  string priority = 3;            // 优先级
+  string section = 4;             // 相关章节
+  string before = 5;              // 修改前
+  string after = 6;               // 修改后
+  repeated string examples = 7;    // 示例
+}
+
+// 生成建议请求
+message GenerateSuggestionsRequest {
+  string analysis_id = 1;         // 分析ID
+  AnalysisResult analysis_result = 2; // 分析结果
+  string target_position = 3;     // 目标职位
+  string industry = 4;            // 行业
+  SuggestionOptions options = 5;  // 建议选项
+}
+
+// 建议选项
+message SuggestionOptions {
+  int32 max_suggestions = 1;      // 最大建议数
+  string focus_area = 2;          // 重点领域
+  string experience_level = 3;    // 经验级别
+}
+
+// 生成建议响应
+message GenerateSuggestionsResponse {
+  repeated Suggestion suggestions = 1;     // 建议列表
+  string reasoning = 2;                    // 推理过程
+  string status = 3;                       // 状态
+  string message = 4;                      // 消息
+}
+
+// 智能问答请求
+message ChatRequest {
+  string session_id = 1;          // 会话ID
+  string message = 2;             // 用户消息
+  string context = 3;             // 上下文
+  ChatOptions options = 4;        // 聊天选项
+}
+
+// 聊天选项
+message ChatOptions {
+  bool use_resume_context = 1;    // 使用简历上下文
+  bool use_knowledge_base = 2;    // 使用知识库
+  string language = 3;            // 语言
+}
+
+// 智能问答响应
+message ChatResponse {
+  string response = 1;            // AI回复
+  string session_id = 2;          // 会话ID
+  repeated string sources = 3;     // 信息来源
+  string status = 4;              // 状态
+  string message = 5;             // 消息
+}
+
+// 知识检索请求
+message RetrieveKnowledgeRequest {
+  string query = 1;               // 查询内容
+  int32 top_k = 2;               // 返回数量
+  float similarity_threshold = 3; // 相似度阈值
+  repeated string filters = 4;    // 过滤条件
+}
+
+// 知识检索响应
+message RetrieveKnowledgeResponse {
+  repeated KnowledgeItem items = 1; // 知识条目
+  string status = 2;               // 状态
+  string message = 3;              // 消息
+}
+
+// 知识条目
+message KnowledgeItem {
+  string id = 1;                  // 条目ID
+  string title = 2;               // 标题
+  string content = 3;             // 内容
+  float score = 4;                // 相关性评分
+  map<string, string> metadata = 5; // 元数据
+}
+
+// 健康检查响应
+message HealthResponse {
+  string status = 1;              // 状态
+  string version = 2;             // 版本
+  map<string, string> components = 3; // 组件状态
+}

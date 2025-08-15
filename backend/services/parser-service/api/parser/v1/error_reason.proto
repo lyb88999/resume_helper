@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package api.parser.v1;
+
+import "errors/errors.proto";
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/parser-service/api/parser/v1;v1";
+
+// 解析服务错误码
+enum ErrorReason {
+  // 设置缺省错误码
+  option (errors.default_code) = 500;
+  
+  // 文件不存在
+  FILE_NOT_FOUND = 0 [(errors.code) = 404];
+  
+  // 不支持的文件格式  
+  UNSUPPORTED_FILE_TYPE = 1 [(errors.code) = 400];
+  
+  // 文件损坏或无法读取
+  FILE_CORRUPTED = 2 [(errors.code) = 400];
+  
+  // 解析失败
+  PARSE_FAILED = 3 [(errors.code) = 500];
+  
+  // 任务不存在
+  TASK_NOT_FOUND = 4 [(errors.code) = 404];
+  
+  // 任务正在处理中
+  TASK_PROCESSING = 5 [(errors.code) = 202];
+  
+  // 文件太大
+  FILE_TOO_LARGE = 6 [(errors.code) = 413];
+  
+  // 解析超时
+  PARSE_TIMEOUT = 7 [(errors.code) = 408];
+  
+  // 文档密码保护
+  DOCUMENT_PROTECTED = 8 [(errors.code) = 400];
+  
+  // 内容为空
+  EMPTY_CONTENT = 9 [(errors.code) = 400];
+}

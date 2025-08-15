@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/api/user/v1;v1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+// 用户服务
+service UserService {
+  // 用户注册
+  rpc Register(RegisterRequest) returns (RegisterReply) {
+    option (google.api.http) = {
+      post: "/v1/user/register"
+      body: "*"
+    };
+  }
+  
+  // 用户登录
+  rpc Login(LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/v1/user/login"
+      body: "*"
+    };
+  }
+  
+  // 获取用户信息
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoReply) {
+    option (google.api.http) = {
+      get: "/v1/user/{id}"
+    };
+  }
+  
+  // 更新用户信息
+  rpc UpdateUserInfo(UpdateUserInfoRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      put: "/v1/user/{id}"
+      body: "*"
+    };
+  }
+}
+
+// 注册请求
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string nickname = 3;
+}
+
+// 注册响应
+message RegisterReply {
+  uint64 id = 1;
+  string email = 2;
+  string nickname = 3;
+  string created_at = 4;
+}
+
+// 登录请求
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// 登录响应
+message LoginReply {
+  string token = 1;
+  uint64 expires_at = 2;
+  UserInfo user = 3;
+}
+
+// 获取用户信息请求
+message GetUserInfoRequest {
+  uint64 id = 1;
+}
+
+// 获取用户信息响应
+message GetUserInfoReply {
+  UserInfo user = 1;
+}
+
+// 更新用户信息请求
+message UpdateUserInfoRequest {
+  uint64 id = 1;
+  string nickname = 2;
+  string avatar = 3;
+}
+
+// 用户信息
+message UserInfo {
+  uint64 id = 1;
+  string email = 2;
+  string nickname = 3;
+  string avatar = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}

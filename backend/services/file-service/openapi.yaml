@@ -1,0 +1,236 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: FileService API
+    description: FileService 文件服务
+    version: 0.0.1
+paths:
+    /api/v1/files:
+        get:
+            tags:
+                - FileService
+            description: 获取文件列表
+            operationId: FileService_ListFiles
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: perPage
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: type
+                  in: query
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: userId
+                  in: query
+                  schema:
+                    type: string
+                - name: createdAfter
+                  in: query
+                  schema:
+                    type: string
+                - name: createdBefore
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.file.v1.ListFilesReply'
+    /api/v1/files/upload:
+        post:
+            tags:
+                - FileService
+            description: 上传文件
+            operationId: FileService_Upload
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.file.v1.UploadRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.file.v1.UploadReply'
+    /api/v1/files/{fileId}:
+        get:
+            tags:
+                - FileService
+            description: 获取文件详情
+            operationId: FileService_GetFile
+            parameters:
+                - name: fileId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: userId
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.file.v1.GetFileReply'
+        delete:
+            tags:
+                - FileService
+            description: 删除文件
+            operationId: FileService_DeleteFile
+            parameters:
+                - name: fileId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: userId
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.file.v1.DeleteFileReply'
+    /api/v1/files/{fileId}/download:
+        get:
+            tags:
+                - FileService
+            description: 下载文件
+            operationId: FileService_DownloadFile
+            parameters:
+                - name: fileId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+                - name: userId
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.file.v1.DownloadFileReply'
+components:
+    schemas:
+        api.file.v1.DeleteFileReply:
+            type: object
+            properties:
+                success:
+                    type: boolean
+                message:
+                    type: string
+            description: 删除文件响应
+        api.file.v1.DownloadFileReply:
+            type: object
+            properties:
+                content:
+                    type: string
+                    format: bytes
+                filename:
+                    type: string
+                mimeType:
+                    type: string
+            description: 下载文件响应
+        api.file.v1.FileInfo:
+            type: object
+            properties:
+                fileId:
+                    type: string
+                filename:
+                    type: string
+                originalName:
+                    type: string
+                size:
+                    type: string
+                mimeType:
+                    type: string
+                url:
+                    type: string
+                status:
+                    type: string
+                userId:
+                    type: string
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
+            description: 文件信息
+        api.file.v1.GetFileReply:
+            type: object
+            properties:
+                file:
+                    $ref: '#/components/schemas/api.file.v1.FileInfo'
+            description: 获取文件详情响应
+        api.file.v1.ListFilesReply:
+            type: object
+            properties:
+                files:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.file.v1.FileInfo'
+                total:
+                    type: integer
+                    format: int32
+                page:
+                    type: integer
+                    format: int32
+                perPage:
+                    type: integer
+                    format: int32
+                totalPages:
+                    type: integer
+                    format: int32
+            description: 获取文件列表响应
+        api.file.v1.UploadReply:
+            type: object
+            properties:
+                file:
+                    $ref: '#/components/schemas/api.file.v1.FileInfo'
+            description: 上传响应
+        api.file.v1.UploadRequest:
+            type: object
+            properties:
+                file:
+                    type: string
+                    format: bytes
+                filename:
+                    type: string
+                title:
+                    type: string
+                description:
+                    type: string
+                userId:
+                    type: string
+            description: 上传请求
+tags:
+    - name: FileService

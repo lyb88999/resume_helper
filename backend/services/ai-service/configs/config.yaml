@@ -1,0 +1,51 @@
+server:
+  http:
+    addr: 0.0.0.0:8003
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9003
+    timeout: 1s
+
+data:
+  database:
+    driver: mysql
+    source: root:root@tcp(mysql:3306)/resume_optim?charset=utf8mb4&parseTime=True&loc=Local
+  redis:
+    addr: redis:6379
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+
+registry:
+  consul:
+    address: consul:8500
+    scheme: http
+
+ai:
+  model:
+    provider: ark
+    api_key: ${ARK_API_KEY}
+    base_url: https://ark.cn-beijing.volces.com/api/v3
+    model_name: ${MODEL}
+    max_tokens: 4096
+    temperature: 0.7
+    timeout_seconds: 60
+  
+  embedding:
+    provider: ark
+    api_key: ${ARK_API_KEY}
+    base_url: https://ark.cn-beijing.volces.com/api/v3
+    model_name: ${EMBEDDER}
+    dimension: 1024
+    
+  eino:
+    enable_tracing: true
+    enable_caching: true
+    max_concurrent: 10
+    log_level: info
+  
+  vector:
+    provider: milvus
+    address: milvus:19530
+    collection_name: resume_knowledge
+    dimension: 1024
+    similarity_threshold: 0.7

@@ -1,0 +1,69 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  Storage storage = 3;
+  Registry registry = 4;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration read_timeout = 3;
+    google.protobuf.Duration write_timeout = 4;
+  }
+  Database database = 1;
+  Redis redis = 2;
+}
+
+message Storage {
+  message Local {
+    string path = 1;
+  }
+  message MinIO {
+    string endpoint = 1;
+    string access_key = 2;
+    string secret_key = 3;
+    string bucket = 4;
+    bool secure = 5;
+  }
+  string type = 1; // local, minio
+  Local local = 2;
+  MinIO minio = 3;
+  int64 max_file_size = 4; // 最大文件大小(字节)
+  repeated string allowed_types = 5; // 允许的文件类型
+}
+
+message Registry {
+  message Consul {
+    string address = 1;
+    string scheme = 2;
+  }
+  Consul consul = 1;
+}

@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package api.file.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1";
+
+// FileService 文件服务
+service FileService {
+  // 上传文件
+  rpc Upload(UploadRequest) returns (UploadReply) {
+    option (google.api.http) = {
+      post: "/api/v1/files/upload"
+      body: "*"
+    };
+  }
+  
+  // 获取文件列表
+  rpc ListFiles(ListFilesRequest) returns (ListFilesReply) {
+    option (google.api.http) = {
+      get: "/api/v1/files"
+    };
+  }
+  
+  // 获取文件详情
+  rpc GetFile(GetFileRequest) returns (GetFileReply) {
+    option (google.api.http) = {
+      get: "/api/v1/files/{file_id}"
+    };
+  }
+  
+  // 下载文件
+  rpc DownloadFile(DownloadFileRequest) returns (DownloadFileReply) {
+    option (google.api.http) = {
+      get: "/api/v1/files/{file_id}/download"
+    };
+  }
+  
+  // 删除文件
+  rpc DeleteFile(DeleteFileRequest) returns (DeleteFileReply) {
+    option (google.api.http) = {
+      delete: "/api/v1/files/{file_id}"
+    };
+  }
+}
+
+// 文件信息
+message FileInfo {
+  string file_id = 1;
+  string filename = 2;
+  string original_name = 3;
+  int64 size = 4;
+  string mime_type = 5;
+  string url = 6;
+  string status = 7; // uploaded, processing, completed, error
+  int64 user_id = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}
+
+// 上传请求
+message UploadRequest {
+  bytes file = 1 [(validate.rules).bytes.min_len = 1];
+  string filename = 2 [(validate.rules).string.min_len = 1];
+  string title = 3;
+  string description = 4;
+  int64 user_id = 5 [(validate.rules).int64.gt = 0];
+}
+
+// 上传响应
+message UploadReply {
+  FileInfo file = 1;
+}
+
+// 获取文件列表请求
+message ListFilesRequest {
+  int32 page = 1 [(validate.rules).int32.gte = 1];
+  int32 per_page = 2 [(validate.rules).int32 = {gte: 1, lte: 100}];
+  string type = 3; // pdf, docx, md
+  string status = 4; // uploaded, processing, completed, error
+  int64 user_id = 5 [(validate.rules).int64.gt = 0];
+  string created_after = 6;
+  string created_before = 7;
+}
+
+// 获取文件列表响应
+message ListFilesReply {
+  repeated FileInfo files = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 per_page = 4;
+  int32 total_pages = 5;
+}
+
+// 获取文件详情请求
+message GetFileRequest {
+  string file_id = 1 [(validate.rules).string.min_len = 1];
+  int64 user_id = 2 [(validate.rules).int64.gt = 0];
+}
+
+// 获取文件详情响应
+message GetFileReply {
+  FileInfo file = 1;
+}
+
+// 下载文件请求
+message DownloadFileRequest {
+  string file_id = 1 [(validate.rules).string.min_len = 1];
+  int64 user_id = 2 [(validate.rules).int64.gt = 0];
+}
+
+// 下载文件响应
+message DownloadFileReply {
+  bytes content = 1;
+  string filename = 2;
+  string mime_type = 3;
+}
+
+// 删除文件请求
+message DeleteFileRequest {
+  string file_id = 1 [(validate.rules).string.min_len = 1];
+  int64 user_id = 2 [(validate.rules).int64.gt = 0];
+}
+
+// 删除文件响应
+message DeleteFileReply {
+  bool success = 1;
+  string message = 2;
+}

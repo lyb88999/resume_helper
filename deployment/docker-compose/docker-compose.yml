@@ -1,0 +1,344 @@
+version: '3.8'
+
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: ../../frontend/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=http://localhost:8080
+    depends_on:
+      - gateway
+    networks:
+      - resume-optim-network
+
+  # API网关
+  gateway:
+    build:
+      context: ../../backend/gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_HTTP_PORT=8080
+      - CONSUL_ADDRESS=consul:8500
+      - REDIS_ADDR=redis:6379
+    depends_on:
+      - consul
+      - redis
+    networks:
+      - resume-optim-network
+
+  # 用户服务
+  user-service:
+    build:
+      context: ../../backend/services/user-service
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_GRPC_PORT=9001
+      - SERVER_HTTP_PORT=8001
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=resume123
+      - DATABASE_NAME=resume_optim
+      - REDIS_ADDR=redis:6379
+      - CONSUL_ADDRESS=consul:8500
+    depends_on:
+      - mysql
+      - redis
+      - consul
+    networks:
+      - resume-optim-network
+
+  # 简历解析服务
+  parser-service:
+    build:
+      context: ../../backend/services/parser-service
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_GRPC_PORT=9002
+      - SERVER_HTTP_PORT=8002
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=resume123
+      - DATABASE_NAME=resume_optim
+      - REDIS_ADDR=redis:6379
+      - CONSUL_ADDRESS=consul:8500
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    depends_on:
+      - mysql
+      - redis
+      - consul
+      - minio
+    networks:
+      - resume-optim-network
+
+  # AI分析服务
+  ai-service:
+    build:
+      context: ../../backend/services/ai-service
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_GRPC_PORT=9003
+      - SERVER_HTTP_PORT=8003
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=resume123
+      - DATABASE_NAME=resume_optim
+      - REDIS_ADDR=redis:6379
+      - CONSUL_ADDRESS=consul:8500
+      - MILVUS_HOST=milvus
+      - MILVUS_PORT=19530
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - EINO_MODEL_PROVIDER=openai
+    depends_on:
+      - mysql
+      - redis
+      - consul
+      - milvus
+    networks:
+      - resume-optim-network
+
+  # 知识库服务
+  knowledge-service:
+    build:
+      context: ../../backend/services/knowledge-service
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_GRPC_PORT=9004
+      - SERVER_HTTP_PORT=8004
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=resume123
+      - DATABASE_NAME=resume_optim
+      - REDIS_ADDR=redis:6379
+      - CONSUL_ADDRESS=consul:8500
+      - MILVUS_HOST=milvus
+      - MILVUS_PORT=19530
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    depends_on:
+      - mysql
+      - redis
+      - consul
+      - milvus
+      - minio
+    networks:
+      - resume-optim-network
+
+  # 文件服务
+  file-service:
+    build:
+      context: ../../backend/services/file-service
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_GRPC_PORT=9005
+      - SERVER_HTTP_PORT=8005
+      - REDIS_ADDR=redis:6379
+      - CONSUL_ADDRESS=consul:8500
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    depends_on:
+      - redis
+      - consul
+      - minio
+    networks:
+      - resume-optim-network
+
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: resume123
+      MYSQL_DATABASE: resume_optim
+      MYSQL_USER: resume_user
+      MYSQL_PASSWORD: resume123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ../../configs/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+    networks:
+      - resume-optim-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass redis123
+    networks:
+      - resume-optim-network
+
+  # Consul服务注册中心
+  consul:
+    image: consul:1.16
+    restart: always
+    ports:
+      - "8500:8500"
+    volumes:
+      - consul_data:/consul/data
+    command: agent -server -bootstrap-expect=1 -ui -client=0.0.0.0
+    networks:
+      - resume-optim-network
+
+  # Milvus向量数据库
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.0
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    networks:
+      - resume-optim-network
+
+  minio:
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: minio server /data --console-address ":9001"
+    networks:
+      - resume-optim-network
+
+  milvus:
+    image: milvusdb/milvus:v2.3.0
+    restart: always
+    ports:
+      - "19530:19530"
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - milvus_data:/var/lib/milvus
+    depends_on:
+      - etcd
+      - minio
+    networks:
+      - resume-optim-network
+
+  # Kafka消息队列
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.0
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+    networks:
+      - resume-optim-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    restart: always
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - resume-optim-network
+
+  # 监控服务
+  prometheus:
+    image: prom/prometheus:latest
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../../configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - resume-optim-network
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../../configs/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - resume-optim-network
+
+  # Jaeger链路追踪
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    restart: always
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    volumes:
+      - jaeger_data:/tmp
+    networks:
+      - resume-optim-network
+
+volumes:
+  mysql_data:
+  redis_data:
+  consul_data:
+  etcd_data:
+  minio_data:
+  milvus_data:
+  zookeeper_data:
+  kafka_data:
+  prometheus_data:
+  grafana_data:
+  jaeger_data:
+
+networks:
+  resume-optim-network:
+    driver: bridge

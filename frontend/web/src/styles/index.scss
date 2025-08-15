@@ -1,0 +1,118 @@
+// 全局样式文件
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 自定义CSS变量
+:root {
+  --app-primary-color: #409eff;
+  --app-success-color: #67c23a;
+  --app-warning-color: #e6a23c;
+  --app-danger-color: #f56c6c;
+  --app-info-color: #909399;
+}
+
+// 暗色主题
+.dark {
+  --el-bg-color-page: #141414;
+  --el-bg-color: #1a1a1a;
+}
+
+// 通用工具类
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+// 响应式工具类
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hidden-desktop {
+    display: none !important;
+  }
+}
+
+// Element Plus 组件样式覆盖
+.el-button {
+  border-radius: 6px;
+}
+
+.el-input {
+  .el-input__wrapper {
+    border-radius: 6px;
+  }
+}
+
+.el-card {
+  border-radius: 8px;
+  
+  .el-card__header {
+    border-bottom: 1px solid var(--el-border-color-lighter);
+  }
+}
+
+// 动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(-100%);
+}

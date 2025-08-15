@@ -1,0 +1,187 @@
+syntax = "proto3";
+
+package resume.v1;
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/shared/proto/resume;resume";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+// 简历解析服务
+service ResumeParserService {
+  // 上传简历
+  rpc UploadResume(UploadResumeRequest) returns (UploadResumeResponse);
+  // 解析简历
+  rpc ParseResume(ParseResumeRequest) returns (ParseResumeResponse);
+  // 获取解析结果
+  rpc GetParseResult(GetParseResultRequest) returns (GetParseResultResponse);
+  // 获取简历列表
+  rpc ListResumes(ListResumesRequest) returns (ListResumesResponse);
+  // 删除简历
+  rpc DeleteResume(DeleteResumeRequest) returns (DeleteResumeResponse);
+}
+
+// AI分析服务
+service AIAnalysisService {
+  // 分析简历
+  rpc AnalyzeResume(AnalyzeResumeRequest) returns (AnalyzeResumeResponse);
+  // 生成优化建议
+  rpc GenerateSuggestions(GenerateSuggestionsRequest) returns (GenerateSuggestionsResponse);
+  // 获取分析结果
+  rpc GetAnalysisResult(GetAnalysisResultRequest) returns (GetAnalysisResultResponse);
+}
+
+// 上传简历请求
+message UploadResumeRequest {
+  uint64 user_id = 1;
+  string title = 2;
+  string file_name = 3;
+  bytes file_data = 4;
+  string file_type = 5;
+}
+
+// 上传简历响应
+message UploadResumeResponse {
+  int32 code = 1;
+  string message = 2;
+  Resume resume = 3;
+}
+
+// 解析简历请求
+message ParseResumeRequest {
+  uint64 resume_id = 1;
+}
+
+// 解析简历响应
+message ParseResumeResponse {
+  int32 code = 1;
+  string message = 2;
+  string task_id = 3;
+}
+
+// 获取解析结果请求
+message GetParseResultRequest {
+  uint64 resume_id = 1;
+}
+
+// 获取解析结果响应
+message GetParseResultResponse {
+  int32 code = 1;
+  string message = 2;
+  Resume resume = 3;
+}
+
+// 获取简历列表请求
+message ListResumesRequest {
+  uint64 user_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+// 获取简历列表响应
+message ListResumesResponse {
+  int32 code = 1;
+  string message = 2;
+  repeated Resume resumes = 3;
+  int64 total = 4;
+}
+
+// 删除简历请求
+message DeleteResumeRequest {
+  uint64 resume_id = 1;
+  uint64 user_id = 2;
+}
+
+// 删除简历响应
+message DeleteResumeResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+// 分析简历请求
+message AnalyzeResumeRequest {
+  uint64 resume_id = 1;
+  string target_position = 2;
+  string industry = 3;
+}
+
+// 分析简历响应
+message AnalyzeResumeResponse {
+  int32 code = 1;
+  string message = 2;
+  string analysis_id = 3;
+}
+
+// 生成建议请求
+message GenerateSuggestionsRequest {
+  uint64 analysis_id = 1;
+}
+
+// 生成建议响应
+message GenerateSuggestionsResponse {
+  int32 code = 1;
+  string message = 2;
+  repeated Suggestion suggestions = 3;
+}
+
+// 获取分析结果请求
+message GetAnalysisResultRequest {
+  uint64 analysis_id = 1;
+}
+
+// 获取分析结果响应
+message GetAnalysisResultResponse {
+  int32 code = 1;
+  string message = 2;
+  AnalysisResult analysis_result = 3;
+}
+
+// 简历信息
+message Resume {
+  uint64 id = 1;
+  uint64 user_id = 2;
+  string title = 3;
+  string file_path = 4;
+  string file_type = 5;
+  int64 file_size = 6;
+  google.protobuf.Struct parsed_content = 7;
+  int32 status = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}
+
+// 分析结果
+message AnalysisResult {
+  uint64 id = 1;
+  uint64 resume_id = 2;
+  double overall_score = 3;
+  double completeness_score = 4;
+  double clarity_score = 5;
+  double keyword_score = 6;
+  double format_score = 7;
+  double quantification_score = 8;
+  repeated Suggestion suggestions = 9;
+  string analysis_version = 10;
+  string target_position = 11;
+  string industry = 12;
+  google.protobuf.Timestamp created_at = 13;
+}
+
+// 优化建议
+message Suggestion {
+  string section = 1;
+  string level = 2;
+  string type = 3;
+  string title = 4;
+  string description = 5;
+  repeated string examples = 6;
+  SuggestionLocation location = 7;
+  int32 priority = 8;
+}
+
+// 建议位置
+message SuggestionLocation {
+  string section = 1;
+  int32 index = 2;
+  string field = 3;
+}

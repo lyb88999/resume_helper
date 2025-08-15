@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package api.file.v1;
+
+import "errors/errors.proto";
+
+option go_package = "github.com/liyubo06/resumeOptim_claude/backend/services/file-service/api/file/v1;v1";
+
+// FileService的错误码
+enum ErrorReason {
+  // 设置缺省错误码
+  option (errors.default_code) = 500;
+
+  // 文件不存在
+  FILE_NOT_FOUND = 0 [(errors.code) = 404];
+  // 文件格式不支持
+  FILE_FORMAT_NOT_SUPPORTED = 1 [(errors.code) = 400];
+  // 文件大小超限
+  FILE_SIZE_EXCEEDED = 2 [(errors.code) = 400];
+  // 文件上传失败
+  FILE_UPLOAD_FAILED = 3 [(errors.code) = 500];
+  // 文件下载失败
+  FILE_DOWNLOAD_FAILED = 4 [(errors.code) = 500];
+  // 权限不足
+  PERMISSION_DENIED = 5 [(errors.code) = 403];
+  // 存储空间不足
+  STORAGE_QUOTA_EXCEEDED = 6 [(errors.code) = 400];
+}

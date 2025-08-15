@@ -1,0 +1,326 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ParserService API
+    description: 解析服务
+    version: 0.0.1
+paths:
+    /api/v1/parser/parse:
+        post:
+            tags:
+                - ParserService
+            description: 解析文档
+            operationId: ParserService_ParseDocument
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.parser.v1.ParseDocumentRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.parser.v1.ParseDocumentReply'
+    /api/v1/parser/status/{taskId}:
+        get:
+            tags:
+                - ParserService
+            description: 获取解析状态
+            operationId: ParserService_GetParseStatus
+            parameters:
+                - name: taskId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.parser.v1.GetParseStatusReply'
+    /health:
+        get:
+            tags:
+                - ParserService
+            description: 健康检查
+            operationId: ParserService_Health
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.parser.v1.HealthReply'
+components:
+    schemas:
+        api.parser.v1.Education:
+            type: object
+            properties:
+                school:
+                    type: string
+                degree:
+                    type: string
+                major:
+                    type: string
+                startDate:
+                    type: string
+                endDate:
+                    type: string
+                gpa:
+                    type: string
+                description:
+                    type: string
+                courses:
+                    type: array
+                    items:
+                        type: string
+            description: 教育背景
+        api.parser.v1.Experience:
+            type: object
+            properties:
+                company:
+                    type: string
+                position:
+                    type: string
+                startDate:
+                    type: string
+                endDate:
+                    type: string
+                location:
+                    type: string
+                department:
+                    type: string
+                responsibilities:
+                    type: array
+                    items:
+                        type: string
+                achievements:
+                    type: array
+                    items:
+                        type: string
+                technologies:
+                    type: array
+                    items:
+                        type: string
+            description: 工作经历
+        api.parser.v1.GetParseStatusReply:
+            type: object
+            properties:
+                taskId:
+                    type: string
+                status:
+                    type: string
+                content:
+                    $ref: '#/components/schemas/api.parser.v1.ParsedContent'
+                message:
+                    type: string
+                progress:
+                    type: integer
+                    format: int32
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
+            description: 获取解析状态响应
+        api.parser.v1.HealthReply:
+            type: object
+            properties:
+                status:
+                    type: string
+                service:
+                    type: string
+                timestamp:
+                    type: string
+                    format: date-time
+            description: 健康检查响应
+        api.parser.v1.ParseDocumentReply:
+            type: object
+            properties:
+                taskId:
+                    type: string
+                status:
+                    type: string
+                content:
+                    $ref: '#/components/schemas/api.parser.v1.ParsedContent'
+                message:
+                    type: string
+                createdAt:
+                    type: string
+                    format: date-time
+            description: 解析文档响应
+        api.parser.v1.ParseDocumentRequest:
+            type: object
+            properties:
+                filePath:
+                    type: string
+                fileType:
+                    type: string
+                resumeId:
+                    type: string
+                userId:
+                    type: string
+                options:
+                    allOf:
+                        - $ref: '#/components/schemas/api.parser.v1.ParseOptions'
+                    description: 解析选项
+            description: 解析文档请求
+        api.parser.v1.ParseMetadata:
+            type: object
+            properties:
+                fileSize:
+                    type: string
+                pageCount:
+                    type: integer
+                    format: int32
+                parseDuration:
+                    type: string
+                parserVersion:
+                    type: string
+                warnings:
+                    type: array
+                    items:
+                        type: string
+                confidenceScore:
+                    type: integer
+                    format: int32
+            description: 解析元数据
+        api.parser.v1.ParseOptions:
+            type: object
+            properties:
+                extractImages:
+                    type: boolean
+                cleanText:
+                    type: boolean
+                targetLanguage:
+                    type: string
+                skipSections:
+                    type: array
+                    items:
+                        type: string
+            description: 解析选项
+        api.parser.v1.ParsedContent:
+            type: object
+            properties:
+                personalInfo:
+                    $ref: '#/components/schemas/api.parser.v1.PersonalInfo'
+                education:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.parser.v1.Education'
+                experience:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.parser.v1.Experience'
+                projects:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.parser.v1.Project'
+                skills:
+                    $ref: '#/components/schemas/api.parser.v1.Skills'
+                rawText:
+                    type: string
+                metadata:
+                    $ref: '#/components/schemas/api.parser.v1.ParseMetadata'
+            description: 解析内容
+        api.parser.v1.PersonalInfo:
+            type: object
+            properties:
+                name:
+                    type: string
+                phone:
+                    type: string
+                email:
+                    type: string
+                address:
+                    type: string
+                birthDate:
+                    type: string
+                gender:
+                    type: string
+                nationality:
+                    type: string
+                socialLinks:
+                    type: array
+                    items:
+                        type: string
+                avatarUrl:
+                    type: string
+            description: 个人信息
+        api.parser.v1.Project:
+            type: object
+            properties:
+                name:
+                    type: string
+                role:
+                    type: string
+                startDate:
+                    type: string
+                endDate:
+                    type: string
+                description:
+                    type: string
+                technologies:
+                    type: array
+                    items:
+                        type: string
+                achievements:
+                    type: array
+                    items:
+                        type: string
+                url:
+                    type: string
+                company:
+                    type: string
+            description: 项目经历
+        api.parser.v1.SkillCategory:
+            type: object
+            properties:
+                category:
+                    type: string
+                skills:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.parser.v1.SkillItem'
+            description: 技能分类
+        api.parser.v1.SkillItem:
+            type: object
+            properties:
+                name:
+                    type: string
+                level:
+                    type: string
+                years:
+                    type: integer
+                    format: int32
+            description: 技能项
+        api.parser.v1.Skills:
+            type: object
+            properties:
+                categories:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.parser.v1.SkillCategory'
+                languages:
+                    type: array
+                    items:
+                        type: string
+                certifications:
+                    type: array
+                    items:
+                        type: string
+                awards:
+                    type: array
+                    items:
+                        type: string
+            description: 技能
+tags:
+    - name: ParserService
