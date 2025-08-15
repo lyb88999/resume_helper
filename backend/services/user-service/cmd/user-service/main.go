@@ -4,9 +4,6 @@ import (
 	"flag"
 	"os"
 
-	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
-
-	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
 	"github.com/go-kratos/kratos/v2/log"
@@ -14,6 +11,7 @@ import (
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/go-kratos/kratos/v2/transport/http"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf;conf"
 
 	_ "go.uber.org/automaxprocs"
 )
@@ -32,7 +30,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&flagconf, "conf", "../../../configs/user-service.yaml", "config path, eg: -conf config.yaml")
+	flag.StringVar(&flagconf, "conf", "configs/config.local.yaml", "config path, eg: -conf config.yaml")
 }
 
 func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, r registry.Registrar) *kratos.App {

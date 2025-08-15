@@ -13,8 +13,6 @@ import (
 
 // ParserService 解析服务实现
 type ParserService struct {
-	pb.UnimplementedParserServiceServer
-
 	uc *biz.ParserUsecase
 }
 

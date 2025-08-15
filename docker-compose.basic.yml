@@ -28,6 +28,16 @@ services:
       - redis_dev_data:/data
     command: redis-server --appendonly yes
 
+  # Consul服务发现
+  consul:
+    image: consul:1.15
+    restart: always
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+      - "8300-8302:8300-8302"
+    command: agent -server -bootstrap-expect=1 -ui -client=0.0.0.0 -bind=0.0.0.0
+
 volumes:
   mysql_dev_data:
   redis_dev_data:

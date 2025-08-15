@@ -7,12 +7,11 @@ WORKDIR /app
 # 安装必要的包
 RUN apk add --no-cache git ca-certificates
 
-# 复制 go mod 文件
-COPY go.mod ./
-COPY go.sum ./
-
-# 复制源代码
+# 复制整个项目代码
 COPY . .
+
+# 下载依赖
+RUN go mod download
 
 # 构建应用
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main cmd/main.go cmd/wire_gen.go

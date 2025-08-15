@@ -11,8 +11,6 @@ import (
 
 // FileService 文件服务实现
 type FileService struct {
-	v1.UnimplementedFileServiceServer
-
 	uc  *biz.FileUsecase
 	log *log.Helper
 }

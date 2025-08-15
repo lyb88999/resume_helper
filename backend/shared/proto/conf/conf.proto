@@ -1,8 +1,7 @@
 syntax = "proto3";
 package kratos.api;
 
-option go_package = "github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf;conf";
-
+option go_package = "github.com/lyb88999/resume_helper/backend/shared/proto/conf;conf";
 import "google/protobuf/duration.proto";
 
 message Bootstrap {
@@ -56,13 +55,13 @@ message Consul {
 message AI {
   // 模型配置
   ModelConfig model = 1;
-  
+
   // Embedding配置
   EmbeddingConfig embedding = 2;
-  
+
   // Eino框架配置
   EinoConfig eino = 3;
-  
+
   // 向量数据库配置
   VectorConfig vector = 4;
 }

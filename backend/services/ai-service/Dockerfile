@@ -2,12 +2,11 @@ FROM golang:1.24-alpine AS builder
 
 WORKDIR /app
 
-# 复制go mod文件
-COPY go.mod go.sum ./
-RUN go mod download
-
-# 复制源代码
+# 复制整个项目代码
 COPY . .
+
+# 下载依赖
+RUN go mod download
 
 # 构建应用
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ai-service ./cmd/ai-service
@@ -23,7 +22,7 @@ WORKDIR /root/
 COPY --from=builder /app/ai-service .
 
 # 复制配置文件
-COPY --from=builder /app/configs/ ./configs/
+COPY configs/ ./configs/
 
 # 暴露端口
 EXPOSE 8002 9002

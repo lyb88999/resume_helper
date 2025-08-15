@@ -15,7 +15,7 @@
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/liyubo06/resumeOptim_claude.git
+git clone https://github.com/lyb88999/resume_helper.git
 cd resumeOptim_claude
 
 # 2. 初始化开发环境
@@ -496,7 +496,7 @@ git commit -m "docs(api): 更新API文档"
 如遇问题，请：
 
 1. 查看 [FAQ文档](./doc/FAQ.md)
-2. 搜索 [Issues](https://github.com/liyubo06/resumeOptim_claude/issues)
+2. 搜索 [Issues](https://github.com/lyb88999/resume_helper/issues)
 3. 提交新Issue或联系维护者
 
 **Happy Coding! 🚀**
