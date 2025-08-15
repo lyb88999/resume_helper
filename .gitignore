@@ -1,0 +1,100 @@
+# 依赖目录
+node_modules/
+vendor/
+
+# 构建输出
+bin/
+dist/
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# 日志文件
+*.log
+logs/
+
+# 环境配置文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 配置文件（本地开发配置）
+config.local.yaml
+config.local.yml
+*.local.yaml
+*.local.yml
+
+# 上传文件目录
+uploads/
+temp/
+tmp/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 缓存文件
+.cache/
+.parcel-cache/
+.npm/
+.eslintcache
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Go 相关
+*.test
+*.out
+go.work
+
+# 前端构建产物
+frontend/web/dist/
+frontend/web/build/
+frontend/web/.nuxt/
+frontend/web/.output/
+
+# 测试覆盖率
+coverage/
+*.cover
+*.coverprofile
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# 证书和密钥
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# 压缩包
+*.zip
+*.tar.gz
+*.rar
+
+# 其他
+*.pid
+*.seed
+*.pid.lock
