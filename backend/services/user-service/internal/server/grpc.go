@@ -7,8 +7,8 @@ import (
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 
 	v1 "github.com/lyb88999/resume_helper/api/user/v1"
-	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
 	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/service"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 )
 
 // NewGRPCServer new a gRPC server.

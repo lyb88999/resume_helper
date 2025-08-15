@@ -1,16 +1,23 @@
 syntax = "proto3";
 package kratos.api;
 
+// 关键改动：go_package 路径指向共享目录，并用分号明确指定包名为 conf
 option go_package = "github.com/lyb88999/resume_helper/backend/shared/proto/conf;conf";
+
 import "google/protobuf/duration.proto";
 
+// 包含了所有微服务配置项的统一引导结构
 message Bootstrap {
   Server server = 1;
   Data data = 2;
   Registry registry = 3;
-  AI ai = 4;
+  Auth auth = 4;         // 来自 user-service 的配置
+  Storage storage = 5;   // 来自 file-service 的配置
+  Parser parser = 6;     // 来自 parser-service 的配置
+  AI ai = 7;             // 来自 ai-service 的配置
 }
 
+// 通用服务配置
 message Server {
   message HTTP {
     string network = 1;
@@ -26,6 +33,7 @@ message Server {
   GRPC grpc = 2;
 }
 
+// 通用数据源配置
 message Data {
   message Database {
     string driver = 1;
@@ -41,60 +49,105 @@ message Data {
   Redis redis = 2;
 }
 
-// 服务注册配置
+// 通用服务注册配置
 message Registry {
+  message Consul {
+    string address = 1;
+    string scheme = 2;
+  }
   Consul consul = 1;
 }
 
-message Consul {
-  string address = 1;
-  string scheme = 2;
+// --- 以下为各个微服务专属的配置消息定义 ---
+
+// Auth - 来自 user-service 的配置
+message Auth {
+  string jwt_secret = 1;
+  google.protobuf.Duration jwt_expire = 2;
 }
 
-// AI服务配置
+// Storage - 来自 file-service 的配置
+message Storage {
+  message Local {
+    string path = 1;
+  }
+  message MinIO {
+    string endpoint = 1;
+    string access_key = 2;
+    string secret_key = 3;
+    string bucket = 4;
+    bool secure = 5;
+  }
+  string type = 1; // local, minio
+  Local local = 2;
+  MinIO minio = 3;
+  int64 max_file_size = 4;
+  repeated string allowed_types = 5;
+}
+
+// Parser - 来自 parser-service 的配置
+message Parser {
+  FileConfig file = 1;
+  map<string, ParserConfig> parsers = 2;
+  TaskConfig task = 3;
+}
+
+message FileConfig {
+  int64 max_file_size = 1;
+  repeated string allowed_types = 2;
+  string temp_dir = 3;
+  int32 cleanup_interval = 4;
+}
+
+message ParserConfig {
+  bool enabled = 1;
+  map<string, string> options = 2;
+}
+
+message TaskConfig {
+  int32 max_concurrent = 1;
+  int32 timeout_seconds = 2;
+  int32 retry_count = 3;
+  string queue_name = 4;
+}
+
+// AI - 来自 ai-service 的配置
 message AI {
-  // 模型配置
   ModelConfig model = 1;
-
-  // Embedding配置
   EmbeddingConfig embedding = 2;
-
-  // Eino框架配置
   EinoConfig eino = 3;
-
-  // 向量数据库配置
   VectorConfig vector = 4;
 }
 
 message ModelConfig {
-  string provider = 1;           // 模型提供商: ark, openai, claude, etc.
-  string api_key = 2;           // API密钥
-  string base_url = 3;          // API地址
-  string model_name = 4;        // 模型名称
-  int32 max_tokens = 5;         // 最大token数
-  float temperature = 6;        // 温度参数
-  int32 timeout_seconds = 7;    // 超时时间
+  string provider = 1;
+  string api_key = 2;
+  string base_url = 3;
+  string model_name = 4;
+  int32 max_tokens = 5;
+  float temperature = 6;
+  int32 timeout_seconds = 7;
 }
 
 message EmbeddingConfig {
-  string provider = 1;          // Embedding提供商: ark, openai, etc.
-  string api_key = 2;          // API密钥
-  string base_url = 3;         // API地址
-  string model_name = 4;       // 模型名称
-  int32 dimension = 5;         // 向量维度
+  string provider = 1;
+  string api_key = 2;
+  string base_url = 3;
+  string model_name = 4;
+  int32 dimension = 5;
 }
 
 message EinoConfig {
-  bool enable_tracing = 1;      // 启用链路追踪
-  bool enable_caching = 2;      // 启用缓存
-  int32 max_concurrent = 3;     // 最大并发数
-  string log_level = 4;         // 日志级别
+  bool enable_tracing = 1;
+  bool enable_caching = 2;
+  int32 max_concurrent = 3;
+  string log_level = 4;
 }
 
 message VectorConfig {
-  string provider = 1;          // 向量数据库提供商: milvus, pinecone, etc.
-  string address = 2;           // 数据库地址
-  string collection_name = 3;   // 集合名称
-  int32 dimension = 4;          // 向量维度
-  float similarity_threshold = 5; // 相似度阈值
+  string provider = 1;
+  string address = 2;
+  string collection_name = 3;
+  int32 dimension = 4;
+  float similarity_threshold = 5;
 }

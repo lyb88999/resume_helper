@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
+	v1 "github.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1"
 	"time"
 
 	pb "github.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1"
@@ -13,6 +14,7 @@ import (
 
 // ParserService 解析服务实现
 type ParserService struct {
+	v1.UnimplementedParserServiceServer
 	uc *biz.ParserUsecase
 }
 

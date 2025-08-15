@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"github.com/go-kratos/kratos/v2"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 	"os"
 
 	"github.com/go-kratos/kratos/v2/config"
@@ -11,8 +13,6 @@ import (
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
 	"github.com/go-kratos/kratos/v2/transport/http"
-	"github.com/lyb88999/resume_helper/backend/shared/proto/conf;conf"
-
 	_ "go.uber.org/automaxprocs"
 )
 

@@ -6,8 +6,8 @@ import (
 	"time"
 
 	v1 "github.com/lyb88999/resume_helper/backend/services/ai-service/api/ai/v1"
-	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf"
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/service"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
@@ -76,4 +76,3 @@ func NewHTTPServer(c *conf.Server, aiService *service.AIService, logger log.Logg
 
 	return srv
 }
-

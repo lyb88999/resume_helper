@@ -18,5 +18,5 @@ auth:
   jwt_expire: 604800s # 7 days in seconds
 registry:
   consul:
-    address: "consul:8500"
+    address: "localhost:8500"
     scheme: "http"

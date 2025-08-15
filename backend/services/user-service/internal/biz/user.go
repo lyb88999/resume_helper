@@ -11,7 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	v1 "github.com/lyb88999/resume_helper/api/user/v1"
-	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 )
 
 // User 业务层用户模型

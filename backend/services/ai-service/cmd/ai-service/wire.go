@@ -9,10 +9,10 @@ package main
 
 import (
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/biz"
-	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf"
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/data"
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/server"
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/service"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

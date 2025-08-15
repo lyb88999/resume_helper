@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	v1 "github.com/lyb88999/resume_helper/backend/services/file-service/api/file/v1"
-	"github.com/lyb88999/resume_helper/backend/services/file-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 )
 
 var (

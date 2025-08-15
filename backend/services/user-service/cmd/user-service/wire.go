@@ -11,10 +11,10 @@ import (
 	"github.com/google/wire"
 
 	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/biz"
-	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/conf"
 	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/data"
 	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/server"
 	"github.com/lyb88999/resume_helper/backend/services/user-service/internal/service"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 )
 
 // wireApp init kratos application.

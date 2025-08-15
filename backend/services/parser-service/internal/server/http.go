@@ -6,8 +6,8 @@ import (
 	"time"
 
 	v1 "github.com/lyb88999/resume_helper/backend/services/parser-service/api/parser/v1"
-	"github.com/lyb88999/resume_helper/backend/services/parser-service/internal/conf"
 	"github.com/lyb88999/resume_helper/backend/services/parser-service/internal/service"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"

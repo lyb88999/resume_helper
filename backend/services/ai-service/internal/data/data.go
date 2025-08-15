@@ -11,7 +11,7 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/biz"
-	"github.com/lyb88999/resume_helper/backend/services/ai-service/internal/conf"
+	"github.com/lyb88999/resume_helper/backend/shared/proto/conf"
 )
 
 // ProviderSet is data providers.

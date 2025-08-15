@@ -13,7 +13,9 @@ SERVICES := user-service file-service parser-service ai-service
 
 # Proto 文件路径
 # 只编译项目自身的API定义，不包括第三方依赖
-API_PROTO_FILES := $(shell find api -name *.proto)
+#API_PROTO_FILES := $(shell find api -name *.proto)
+API_PROTO_FILES := $(shell find api -name "*.proto") $(shell find backend/services -path "*/api/*.proto")
+
 # 只编译每个服务的conf.proto和shared/proto下的文件
 INTERNAL_PROTO_FILES := $(shell find backend/services/*/internal/conf -name *.proto) $(shell find backend/shared/proto -name *.proto)
 
@@ -123,9 +125,10 @@ build-%:
 	$(GO_CMD) build -ldflags "-X main.Version=$(VERSION)" -o ./bin/$* ./backend/services/$*/cmd/*-service
 
 # 本地运行指定服务, e.g., make run-user-service
+.PHONY: run-%
 run-%:
 	@echo "🚀 正在运行服务: $*..."
-	@$(GO_CMD) run ./backend/services/$*/cmd/*-service -conf ./backend/services/$*/configs/config.yaml
+	@$(GO_CMD) run ./backend/services/$*/cmd/*-service -conf ./configs/$*.yaml
 
 .PHONY: dev
 # (推荐) 在本地并发运行所有后端服务
@@ -133,7 +136,7 @@ dev: build
 	@echo "🚀 正在并发启动所有后端服务..."
 	@for service in $(SERVICES); do \
 		echo "  -> 正在后台启动 $$service..."; \
-		./bin/$$service -conf ./backend/services/$$service/configs/config.yaml & \
+		./bin/$$service -conf ./configs/$$service.yaml & \
 	done
 	@echo "✅ 所有服务已在后台启动。使用 'make stop-dev' 来停止它们。"
 	@wait
@@ -180,6 +183,7 @@ docker-down:
 # 查看所有服务的docker日志
 docker-logs:
 	docker-compose -f docker-compose.dev.yml logs -f
+
 
 
 .DEFAULT_GOAL := help
