@@ -11,9 +11,6 @@ RUN apk add --no-cache git ca-certificates
 COPY go.mod ./
 COPY go.sum ./
 
-# 下载依赖
-RUN go mod download
-
 # 复制源代码
 COPY . .
 
